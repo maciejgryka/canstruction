@@ -20,24 +20,26 @@ void TransformLabel(cv::Mat* label, const cv::Size& window_size) {
 }
 
 int main(int argc, char *argv[]) {
-  cv::Mat target(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\queen\\queen15.jpg"));
+  std::string target_path("C:\\Work\\VS2010\\canstruction\\img\\queen\\queen15.jpg");
+  cv::Mat target(cv::imread(target_path));
+  // get file names
+  std::vector<std::string> file_paths;
+  file_paths.push_back("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can1.jpg");
+  file_paths.push_back("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can2.jpg");
+  file_paths.push_back("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can3.jpg");
+  file_paths.push_back("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can4.jpg");
+  file_paths.push_back("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can5.jpg");
+  file_paths.push_back("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can6.jpg");
+  file_paths.push_back("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can7.jpg");
+  file_paths.push_back("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can8.jpg");
+  // read in the files and store them in a vector (as well as their rotations)
   std::vector<cv::Mat> labels;
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can1.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can2.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can3.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can4.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can5.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can6.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can7.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can8.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can1_r.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can2_r.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can3_r.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can4_r.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can5_r.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can6_r.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can7_r.jpg"));
-  labels.push_back(cv::imread("C:\\Work\\VS2010\\canstruction\\img\\heinz\\Can8_r.jpg"));
+  cv::Mat temp_label;
+  for (int fp = 0; fp < file_paths.size(); ++fp) {
+    temp_label = cv::imread(file_paths[fp]);
+    labels.push_back(temp_label);
+    labels.push_back(Canstruction::Rotate(temp_label));
+  }
 
   int window_width(20);
   cv::Size n_cans(26, 43);

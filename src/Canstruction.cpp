@@ -129,7 +129,6 @@ std::pair<int, int> Canstruction::FindBestLabelAndOffset(const cv::Mat& window, 
   return std::pair<int, int>(best_label, best_offset);
 }
 
-
 void Canstruction::Optimize() {
   // iterate over all cans
   for (int x = 0; x < cans_.size(); ++x) {

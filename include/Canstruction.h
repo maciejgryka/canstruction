@@ -46,8 +46,16 @@ public:
 
   cv::Mat can_image() const { return can_image_; };
 
+  static cv::Mat Rotate(const cv::Mat& image) {
+    cv::Point image_center(image.cols/2, image.rows/2);
+    cv::Mat rotation_matrix = cv::getRotationMatrix2D(image_center, 180.0, 1.0);
+    cv::Mat image_rot;
+    cv::warpAffine(image, image_rot, rotation_matrix, cv::Size(image.cols, image.rows));
+    return image_rot;
+  };
+
 private:
-  double Distance(const cv::Mat& im1, const cv::Mat& im2) {
+  double Distance(const cv::Mat& im1, const cv::Mat& im2) const {
     return cv::norm(im1, im2);
   };
   // returns a can view at the specified offset (rotation)
